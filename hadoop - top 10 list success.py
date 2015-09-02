@@ -39,7 +39,7 @@ test_text = """\"\"\t\"\"\t\"\"\t\"\"\t\"333\"\t\"\"
 \"\"\t\"\"\t\"\"\t\"\"\t\"7777777\"\t\"\"
 """
 
-# This function allows you to test the mapper with the provided test string
+# This function tests the mapper with the provided test string
 def main():
     import StringIO
     sys.stdin = StringIO.StringIO(test_text)
