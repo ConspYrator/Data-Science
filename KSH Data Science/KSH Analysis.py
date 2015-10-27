@@ -21,7 +21,7 @@ y = data.wage.values
 x = x.reshape(len(x), 1)
 y = y.reshape(len(y), 1)
 
-#clf = linear_model.LinearRegression()
+# Building the model
 clf = make_pipeline(PolynomialFeatures(4), Ridge())
 clf.fit (x, y)
 
@@ -35,7 +35,7 @@ while number < threshold:
     year = year + 1
     number = clf.predict(year)
         
-print "Wages will exceed %s HUF in year %s; predicted wages for year %s is %d HUF." % (threshold, year, year, clf.predict(year))
+print "Average gross monthly earnings will exceed %s HUF in year %s; predicted wages for year %s is %d HUF." % (threshold, year, year, clf.predict(year))
 
 # plotting
 font = {'family' : 'serif',
