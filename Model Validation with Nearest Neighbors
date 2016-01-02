@@ -1,0 +1,16 @@
+#To assess if your prediction is reasonable, besides from comparing it with the median, 
+#the mean and checking if it is included in one standard deviation range, you could use 
+#SKlearn to find the nearest neighbours of the feature vector and see how your result compares with them.
+
+from sklearn.neighbors import NearestNeighbors
+def find_nearest_neighbor_indexes(x, X):  # x is your vector and X is the data set.
+   neigh = NearestNeighbors( n_neighbors = 10 )
+   neigh.fit( X)
+   distance, indexes = neigh.kneighbors( x )
+   return indexes
+indexes = find_nearest_neighbor_indexes(x, X)
+sum_prices = []
+for i in indexes:
+    sum_prices.append(city_data.target[i])
+neighbor_avg = np.mean(sum_prices)
+print "Nearest Neighbors average: " +str(neighbor_avg)
