@@ -1,0 +1,33 @@
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn import svm
+from sklearn.ensemble import VotingClassifier
+from sklearn import datasets
+from sklearn import cross_validation
+
+iris = datasets.load_iris()
+X, y = iris.data[:, 1:3], iris.target
+
+clf1 = GradientBoostingClassifier(n_estimators=100,learning_rate=2,max_depth=1,random_state=0).fit(X_train, y_train)
+clf2 = ExtraTreesClassifier(n_estimators=100,max_depth=None,min_samples_split=1,random_state=0)
+clf3 = LogisticRegression(random_state=1)
+clf4 = RandomForestClassifier(n_estimators=100)
+clf5 = DecisionTreeClassifier(max_depth=None,min_samples_split=1,random_state=0)
+clf6 = AdaBoostClassifier(n_estimators=100)
+clf7 = GaussianNB()
+clf8 = svm.SVC()
+
+eclf = VotingClassifier(estimators=[('gb', clf1), ('et', clf2), ('lr', clf3), ('rf', clf4), ('dt', clf5),
+                                   ('ab', clf6), ('nb', clf7), ('svm', clf8),], voting='hard')
+
+for clf, label in zip([clf1, clf2, clf3, clf4, clf5, clf6, clf7, clf8, eclf], 
+                      ['GradientBoosting', 'ExtraTrees', 'Logistic Regression', 'Random Forest', 
+                      'DecisionTree', 'AdaBoost', 'naive Bayes', 'SVM', 'Ensemble']):
+    scores = cross_validation.cross_val_score(clf, X, y, cv=5, scoring='accuracy')
+    print("Accuracy: %0.2f (+/- %0.2f) [%s]" % (scores.mean(), scores.std(), label))  
