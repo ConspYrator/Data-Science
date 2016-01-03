@@ -1,0 +1,3 @@
+est = reg.best_estimator_   # Retrieve the best estimator found by GridSearchCV. 
+y = est.predict(your_sample_vector)          # Use the object ‘est’ to make a prediction. 
+print "Price Prediction:  " + str(y)
